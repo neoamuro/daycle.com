@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.daycle.daycleapp.models.ActionBarModel;
+
 public class TutorialFragment extends BaseFragment {
 
     // 프래그먼트 메인 뷰 리소스 아이디
@@ -26,7 +28,9 @@ public class TutorialFragment extends BaseFragment {
         setLayout(inflater, container, FRAGMENT_MAIN_VIEW_RES_ID);
 
         // 액션바 설정
-        fragmentCallback.setActionBar(getString(R.string.menu_tutorial), false, true);
+        ActionBarModel actionBarModel = new ActionBarModel(getString(R.string.menu_tutorial));
+        actionBarModel.backgroundColorResId = R.color.colorPreference;
+        fragmentCallback.setActionBar(actionBarModel);
 
         return mainView;
     }

@@ -18,9 +18,11 @@ import com.daycle.daycleapp.custom.CustomViewPager;
 import com.daycle.daycleapp.custom.StickChart;
 import com.daycle.daycleapp.custom.SwipeDirection;
 import com.daycle.daycleapp.custom.calendar.CustomCalendar;
+import com.daycle.daycleapp.models.ActionBarModel;
 import com.daycle.daycleapp.models.AttendanceDayModel;
 import com.daycle.daycleapp.models.AttendanceModel;
 import com.daycle.daycleapp.utils.CalendarUtil;
+import com.daycle.daycleapp.utils.L;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -85,9 +87,6 @@ public class CalendarFragment extends BaseFragment {
         viewPager = (CustomViewPager) mainView.findViewById(R.id.viewPager);
         monthText = (TextView)mainView.findViewById(R.id.CalendarMonthTxt);
 
-        // 액션바 설정
-        fragmentCallback.setActionBar(getString(R.string.menu_calendar), false, true);
-
         // 현재 날짜로 설정
         currCalendar = Calendar.getInstance();
 
@@ -101,8 +100,15 @@ public class CalendarFragment extends BaseFragment {
         }
 
         // 끝난 타이틀이면 색상 그레이로
+        ActionBarModel actionBarModel = new ActionBarModel(getString(R.string.menu_calendar));
+        actionBarModel.customHomeButton = false;
+        actionBarModel.showHomeButton = true;
         if(done){
-            itemTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorGray));
+
+            // 액션바 설정
+            actionBarModel.backgroundColorResId = R.color.colorDone;
+
+            //itemTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorGray));
 
             // 끝난날이 없으면 done_day로 설정
             if(attendanceDays.size() == 0){
@@ -112,19 +118,23 @@ public class CalendarFragment extends BaseFragment {
                 lastDay = lastItem.day;
             }
 
-            // 끝났으면 마지막 쳌크한 날짜로...
+            // 끝났으면 마지막 체크한 날짜로...
             if(currCalendar == null){
                 String[] splitDay = lastDay.split("-");
                 int year = Integer.parseInt(splitDay[0]);
                 int month = Integer.parseInt(splitDay[1]) -1;
                 currCalendar.set(Calendar.YEAR, year);
                 currCalendar.set(Calendar.MONTH, month);
+            }
+
+            if(preventNextMonth()){
+                L.d("prevent");
                 viewPager.setAllowedSwipeDirection(SwipeDirection.left);
             }
+
         }
 
-        if(currCalendar == null){
-        }
+        fragmentCallback.setActionBar(actionBarModel);
 
         // 캘린더 뷰 페이저 리스트
         customCalendars = getCalendarFragmentList();
@@ -192,8 +202,16 @@ public class CalendarFragment extends BaseFragment {
         stick3 = (StickChart)mainView.findViewById(R.id.stick3);
         stick3.setMaxAmount(today.getMaximum(Calendar.DAY_OF_MONTH));
         stick3.setAmount(rightNowItemCount);
-        stick3.setRecFillColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-        stick3.setBottomText(today.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault()));
+
+        String bottomText = "This Month";
+        int bottomTextColor = R.color.colorAccent;
+        if(done){
+            bottomText = today.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+            bottomTextColor = R.color.colorDone;
+        }
+
+        stick3.setBottomText(bottomText);
+        stick3.setRecFillColor(ContextCompat.getColor(getContext(), bottomTextColor));
 
         return mainView;
     }

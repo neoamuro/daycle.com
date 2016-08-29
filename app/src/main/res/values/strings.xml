@@ -38,6 +38,9 @@
     <string name="menu_tutorial">Tutorial</string>
     <string name="menu_terms">Terms of Service</string>
     <string name="menu_calendar">Calendar</string>
+    <string name="menu_backup">Backup</string>
+    <string name="backup_item01">Backup to Google Drive</string>
+    <string name="backup_item02">Restore from Google Drive</string>
     <!-- // nav menu -->
 
     <!-- actionbar title -->
@@ -50,5 +53,11 @@
     <string name="about_daycle">daycle is healthy, cooking, as like start working such as, It can do very simple checked day by day.</string>
     <string name="terms">terms...</string>
     <string name="app_reset_msg">Reset app for apply locale.</string>
-    <string name="menu_backup">Backup</string>
+
+    <!-- backup msg -->
+    <string name="backup_completed">Completed backup</string>
+    <string name="restore_completed">Completed restore</string>
+    <string name="backup_nohave_item">There is no data to recover.</string>
+    <string name="backup_item_confirm">Are you sure you want recover from your Google Drive?</string>
+    <!-- // backup msg -->
 </resources>

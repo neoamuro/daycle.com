@@ -14,6 +14,7 @@ import android.widget.ListView;
 import com.daycle.daycleapp.adapters.CustomRadioListViewAdapter;
 import com.daycle.daycleapp.adapters.DefaultArrayAdapterModel;
 import com.daycle.daycleapp.applications.App;
+import com.daycle.daycleapp.models.ActionBarModel;
 import com.daycle.daycleapp.models.SettingsModel;
 import com.daycle.daycleapp.utils.NeoUtil;
 
@@ -44,36 +45,38 @@ public class LanguageFragment extends BaseFragment {
         ListView listView = (ListView)mainView.findViewById(R.id.listView);
 
         // 액션바 설정
-        fragmentCallback.setActionBar(getString(R.string.menu_lang), false, true);
+        ActionBarModel actionBarModel = new ActionBarModel(getString(R.string.menu_lang));
+        actionBarModel.backgroundColorResId = R.color.colorPreference;
+        fragmentCallback.setActionBar(actionBarModel);
 
         items = new ArrayList<>();
         items.add(new DefaultArrayAdapterModel("en", "English"));
         items.add(new DefaultArrayAdapterModel("ko", "한국어"));
-        items.add(new DefaultArrayAdapterModel("zh", "中文"));
-        items.add(new DefaultArrayAdapterModel("es", "Español"));
-        items.add(new DefaultArrayAdapterModel("ar", "العربية"));
-        items.add(new DefaultArrayAdapterModel("pt", "Português"));
-        items.add(new DefaultArrayAdapterModel("ru", "Pусский язык"));
+//        items.add(new DefaultArrayAdapterModel("zh", "中文"));
+//        items.add(new DefaultArrayAdapterModel("es", "Español"));
+//        items.add(new DefaultArrayAdapterModel("ar", "العربية"));
+//        items.add(new DefaultArrayAdapterModel("pt", "Português"));
+//        items.add(new DefaultArrayAdapterModel("ru", "Pусский язык"));
         items.add(new DefaultArrayAdapterModel("ja", "日本語"));
-        items.add(new DefaultArrayAdapterModel("de", "Deutsch"));
-        items.add(new DefaultArrayAdapterModel("vi", "Tiếng Việt"));
-        items.add(new DefaultArrayAdapterModel("fr", "Français"));
-        items.add(new DefaultArrayAdapterModel("it", "Italiano"));
-        items.add(new DefaultArrayAdapterModel("tr", "Türkçe"));
-        items.add(new DefaultArrayAdapterModel("pl", "Polski"));
-        items.add(new DefaultArrayAdapterModel("id", "Indonesia"));
-        items.add(new DefaultArrayAdapterModel("ro", "Română"));
-        items.add(new DefaultArrayAdapterModel("nl", "Nederlands"));
-        items.add(new DefaultArrayAdapterModel("th", "ภาษาไทย"));
-        items.add(new DefaultArrayAdapterModel("hu", "Magyar"));
-        items.add(new DefaultArrayAdapterModel("cs", "Čeština"));
-        items.add(new DefaultArrayAdapterModel("da", "Dansk"));
-        items.add(new DefaultArrayAdapterModel("no", "Norsk"));
-        items.add(new DefaultArrayAdapterModel("sk", "Slovenčina"));
-        items.add(new DefaultArrayAdapterModel("fi", "Suomi"));
-        items.add(new DefaultArrayAdapterModel("sv", "Svenska"));
-        items.add(new DefaultArrayAdapterModel("bg", "Български"));
-        items.add(new DefaultArrayAdapterModel("el", "Ελληνική"));
+//        items.add(new DefaultArrayAdapterModel("de", "Deutsch"));
+//        items.add(new DefaultArrayAdapterModel("vi", "Tiếng Việt"));
+//        items.add(new DefaultArrayAdapterModel("fr", "Français"));
+//        items.add(new DefaultArrayAdapterModel("it", "Italiano"));
+//        items.add(new DefaultArrayAdapterModel("tr", "Türkçe"));
+//        items.add(new DefaultArrayAdapterModel("pl", "Polski"));
+//        items.add(new DefaultArrayAdapterModel("id", "Indonesia"));
+//        items.add(new DefaultArrayAdapterModel("ro", "Română"));
+//        items.add(new DefaultArrayAdapterModel("nl", "Nederlands"));
+//        items.add(new DefaultArrayAdapterModel("th", "ภาษาไทย"));
+//        items.add(new DefaultArrayAdapterModel("hu", "Magyar"));
+//        items.add(new DefaultArrayAdapterModel("cs", "Čeština"));
+//        items.add(new DefaultArrayAdapterModel("da", "Dansk"));
+//        items.add(new DefaultArrayAdapterModel("no", "Norsk"));
+//        items.add(new DefaultArrayAdapterModel("sk", "Slovenčina"));
+//        items.add(new DefaultArrayAdapterModel("fi", "Suomi"));
+//        items.add(new DefaultArrayAdapterModel("sv", "Svenska"));
+//        items.add(new DefaultArrayAdapterModel("bg", "Български"));
+//        items.add(new DefaultArrayAdapterModel("el", "Ελληνική"));
 
 
         ArrayAdapter<DefaultArrayAdapterModel> adapter = new CustomRadioListViewAdapter(getContext(), items);

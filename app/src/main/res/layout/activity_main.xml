@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         tools:context="com.daycle.daycleapp.MainActivity"
-        android:background="@color/colorBackground">
+        android:background="@color/colorDefaultBackground">
 
         <!-- 액션바 -->
         <android.support.design.widget.AppBarLayout
@@ -88,7 +88,7 @@
         android:layout_gravity="start"
         app:itemIconTint="@color/colorAccent"
         app:itemTextColor="@color/colorPrimary"
-        android:background="@color/colorBackground">
+        android:background="@color/colorDefaultBackground">
         <ListView
             android:id="@+id/navMenuListView"
             android:layout_width="match_parent"

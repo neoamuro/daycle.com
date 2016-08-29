@@ -9,8 +9,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
+import com.daycle.daycleapp.R;
 import com.daycle.daycleapp.utils.L;
 import com.daycle.daycleapp.utils.UIHelper;
 
@@ -64,6 +66,7 @@ public class Oneday extends View {
         textActcntPaint = new Paint();
         bgTodayPaint = new Paint();
         circlePaint = new Paint();
+        circlePaint.setAntiAlias(true); // 안티 얼라이싱을 준다.
         bgDayPaint.setColor(Color.WHITE);
         bgActcntPaint.setColor(Color.YELLOW);
         textDayPaint.setColor(Color.WHITE);
@@ -71,7 +74,7 @@ public class Oneday extends View {
         textActcntPaint.setColor(Color.WHITE);
         textActcntPaint.setAntiAlias(true);
         bgTodayPaint.setColor(Color.GREEN);
-        circlePaint.setColor(Color.parseColor("#0070c0"));
+        circlePaint.setColor(Color.BLACK);
         rect = new RectF();
 
         setTextDayTopPadding(0);
@@ -89,19 +92,19 @@ public class Oneday extends View {
     @Override
     protected void onDraw(Canvas canvas) {
 
-
         if(isToday){
-            canvas.drawPaint(bgTodayPaint);
+            //canvas.drawPaint(bgTodayPaint);
         } else {
-            canvas.drawPaint(bgDayPaint);
+
         }
+
+        canvas.drawPaint(bgDayPaint);
 
         if(mSelected){
             int x = getWidth();
             int y = getHeight();
             //int radius = UIHelper.changeToPixel(getContext(), 50);
             int radius = x / 3; // 반지름의 크기는 사각형 넓이의 1/3
-            L.d("radius" + radius);
             Paint paint = circlePaint;
             //paint.setStyle(Paint.Style.FILL);
             paint.setStyle(Paint.Style.STROKE);
@@ -113,14 +116,21 @@ public class Oneday extends View {
         int width = this.getWidth()/2;
         int height = this.getHeight()/2;
 
+        // 날짜 숫자 출력
         int textDaysize = (int)textDayPaint.measureText(getTextDay()) / 2;
         int textActsize = (int)textActcntPaint.measureText(getTextActCnt()) / 2;
+
+        if(isToday){
+            textDayPaint.setColor(ContextCompat.getColor(getContext(), R.color.colorRed));
+        }else{
+        }
+
         canvas.drawText(getTextDay(), width - textDaysize + getTextDayLeftPadding(), height + getTextDayTopPadding(), textDayPaint);
 
         canvas.drawText(getTextActCnt(), width - textActsize + getTextActcntLeftPadding(), height + getTextActcntTopPadding(), textActcntPaint);
 
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setColor(Color.BLACK);
+        mPaint.setColor(Color.parseColor("#e5e5e5"));
 
         // 달력 칸막이 라인 그리기
         canvas.drawLine(0, this.getHeight()-1, this.getWidth()-1, this.getHeight()-1, mPaint); // 가로 줄

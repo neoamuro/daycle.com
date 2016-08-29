@@ -1,6 +1,7 @@
 package com.daycle.daycleapp;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.daycle.daycleapp.adapters.CustomDateListViewAdapter;
 import com.daycle.daycleapp.adapters.DefaultDateArrayAdapterModel;
 import com.daycle.daycleapp.applications.App;
+import com.daycle.daycleapp.models.ActionBarModel;
 import com.daycle.daycleapp.models.AttendanceDayModel;
 import com.daycle.daycleapp.models.AttendanceModel;
 import com.daycle.daycleapp.models.BackupModel;
@@ -80,7 +82,9 @@ public class BackupFragment extends BaseFragment implements GoogleApiClient.Conn
         setLayout(inflater, container, FRAGMENT_MAIN_VIEW_RES_ID);
 
         // 액션바 설정
-        fragmentCallback.setActionBar(getString(R.string.menu_backup), false, true);
+        ActionBarModel actionBarModel = new ActionBarModel(getString(R.string.menu_backup));
+        actionBarModel.backgroundColorResId = R.color.colorPreference;
+        fragmentCallback.setActionBar(actionBarModel);
 
         // UI 인스턴스
         listView = (ListView)mainView.findViewById(R.id.listView);
@@ -96,8 +100,8 @@ public class BackupFragment extends BaseFragment implements GoogleApiClient.Conn
 
         // 백업 UI 리스트 초기화
         ArrayList<DefaultDateArrayAdapterModel> items = new ArrayList<>();
-        items.add(new DefaultDateArrayAdapterModel("B", "Backup to Google Drive"));
-        items.add(new DefaultDateArrayAdapterModel("R", "Restore from Google Drive"));
+        items.add(new DefaultDateArrayAdapterModel("B", getString(R.string.backup_item01)));
+        items.add(new DefaultDateArrayAdapterModel("R", getString(R.string.backup_item02)));
         adapter = new CustomDateListViewAdapter(getContext(), items);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -161,86 +165,98 @@ public class BackupFragment extends BaseFragment implements GoogleApiClient.Conn
                 else if(item.code.equals("R")){
                     getBackupFile(new CallbackBackupFile() {
                         @Override
-                        public void getDriveId(DriveId driveId) {
+                        public void getDriveId(final DriveId driveId) {
                             if(driveId == null){
-                                App.showToast("No have backup data");
+                                App.showToast(getString(R.string.backup_nohave_item));
                             }else{
 
-                                App.showProgressBar();
-
-                                // 백업한 파일이 있다면 복구한다.
-                                DriveFile file = driveId.asDriveFile();
-                                file.open(mGoogleApiClient, DriveFile.MODE_READ_ONLY, new DriveFile.DownloadProgressListener() {
-
+                                App.confirm(getString(R.string.backup_item_confirm), new DialogInterface.OnClickListener() {
                                     @Override
-                                    public void onProgress(long progress, long total) {}
-                                }).setResultCallback(new ResultCallback<DriveApi.DriveContentsResult>() {
+                                    public void onClick(DialogInterface dialogInterface, int i) {
 
-                                    @Override
-                                    public void onResult(@NonNull final DriveApi.DriveContentsResult driveContentsResult) {
+                                        App.showProgressBar();
 
+                                        // 백업한 파일이 있다면 복구한다.
+                                        DriveFile file = driveId.asDriveFile();
+                                        file.open(mGoogleApiClient, DriveFile.MODE_READ_ONLY, new DriveFile.DownloadProgressListener() {
 
-                                        // 가져오기 실패
-                                        if(!driveContentsResult.getStatus().isSuccess()){
-                                            App.hideProgressBar();
-                                            App.showToast(driveContentsResult.getStatus().getStatusMessage());
-                                            return;
-                                        }
-
-                                        getActivity().runOnUiThread(new Runnable() {
                                             @Override
-                                            public void run() {
+                                            public void onProgress(long progress, long total) {}
+                                        }).setResultCallback(new ResultCallback<DriveApi.DriveContentsResult>() {
 
-                                                 // 파일을 성공적으로 가져왔음
-                                                InputStream stream = driveContentsResult.getDriveContents().getInputStream();
-                                                try{
+                                            @Override
+                                            public void onResult(@NonNull final DriveApi.DriveContentsResult driveContentsResult) {
 
-                                                    L.d("파일 데이터 읽어오기 준비");
-                                                    // 파일 데이터를 읽어온다.
-                                                    StringBuffer stringBuffer = new StringBuffer();
-                                                    int len;
-                                                    byte[] buffer = new byte[4096];
-                                                    while ((len = stream.read(buffer))!= -1){
-                                                        stringBuffer.append(new String(buffer, 0, len));
-                                                    }
 
-                                                    // 스트림 닫음
-                                                    stream.close();
-
-                                                    // 읽어온 json 파일을 모델로 변환
-                                                    String json = stringBuffer.toString();
-
-                                                    L.d("파일 데이터 읽어오기 완료");
-
-                                                    Gson gson = new Gson();
-                                                    BackupModel backupData = gson.fromJson(json, BackupModel.class);
-                                                    //App.setSettings(getContext(), backupData.settings);
-
-                                                    L.d("Gson 변환");
-
-                                                    AttendanceModel.restore(backupData.attendance_items);
-
-                                                    L.d("AttendanceModel 복구");
-
-                                                    AttendanceDayModel.restore(backupData.attendance_day_items);
-
-                                                    L.d("AttendanceDayModel 복구");
-
+                                                // 가져오기 실패
+                                                if(!driveContentsResult.getStatus().isSuccess()){
                                                     App.hideProgressBar();
-
-                                                    App.showToast("복구완료");
-                                                    // 복구 완료가 되면 메인 리스트로...
-                                                    onBack();
-
-                                                } catch (IOException e) {
-                                                    App.hideProgressBar();
-                                                    e.printStackTrace();
+                                                    App.showToast(driveContentsResult.getStatus().getStatusMessage());
+                                                    return;
                                                 }
+
+                                                getActivity().runOnUiThread(new Runnable() {
+                                                    @Override
+                                                    public void run() {
+
+                                                        // 파일을 성공적으로 가져왔음
+                                                        InputStream stream = driveContentsResult.getDriveContents().getInputStream();
+                                                        try{
+
+                                                            L.d("파일 데이터 읽어오기 준비");
+                                                            // 파일 데이터를 읽어온다.
+                                                            StringBuffer stringBuffer = new StringBuffer();
+                                                            int len;
+                                                            byte[] buffer = new byte[4096];
+                                                            while ((len = stream.read(buffer))!= -1){
+                                                                stringBuffer.append(new String(buffer, 0, len));
+                                                            }
+
+                                                            // 스트림 닫음
+                                                            stream.close();
+
+                                                            // 읽어온 json 파일을 모델로 변환
+                                                            String json = stringBuffer.toString();
+
+                                                            L.d("파일 데이터 읽어오기 완료");
+
+                                                            Gson gson = new Gson();
+                                                            BackupModel backupData = gson.fromJson(json, BackupModel.class);
+                                                            //App.setSettings(getContext(), backupData.settings);
+
+                                                            L.d("Gson 변환");
+
+                                                            AttendanceModel.restore(backupData.attendance_items);
+
+                                                            L.d("AttendanceModel 복구");
+
+                                                            AttendanceDayModel.restore(backupData.attendance_day_items);
+
+                                                            L.d("AttendanceDayModel 복구");
+
+                                                            App.hideProgressBar();
+
+                                                            App.showToast(getString(R.string.restore_completed));
+                                                            // 복구 완료가 되면 메인 리스트로...
+                                                            onBack();
+
+                                                        } catch (IOException e) {
+                                                            App.hideProgressBar();
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+                                                });
                                             }
                                         });
+
+                                    } // public void onClick(DialogInterface dialogInterface, int i)
+
+                                }, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        dialogInterface.dismiss();
                                     }
                                 });
-
                             }
                         }
                     });
@@ -420,7 +436,7 @@ public class BackupFragment extends BaseFragment implements GoogleApiClient.Conn
                                             // 파일 생성
                                             // 파일에 대한 고유 아이디 가져옴
                                             //App.showToast("Created a file with content id: " + result.getDriveFile().getDriveId());
-                                            App.showToast("백업 완료");
+                                            App.showToast(getString(R.string.backup_completed));
 
                                             DefaultDateArrayAdapterModel item = adapter.getItem(0);
                                             item.date = new Date();

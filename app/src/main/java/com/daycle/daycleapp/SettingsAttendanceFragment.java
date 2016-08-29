@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.daycle.daycleapp.adapters.CustomRadioListViewAdapter;
 import com.daycle.daycleapp.adapters.DefaultArrayAdapterModel;
 import com.daycle.daycleapp.applications.App;
+import com.daycle.daycleapp.models.ActionBarModel;
 import com.daycle.daycleapp.models.SettingsModel;
 
 import java.util.ArrayList;
@@ -41,7 +42,9 @@ public class SettingsAttendanceFragment extends BaseFragment {
         ListView listView = (ListView)mainView.findViewById(R.id.listView);
 
         // 액션바 설정
-        fragmentCallback.setActionBar(getString(R.string.menu_attendance_count), false, true);
+        ActionBarModel actionBarModel = new ActionBarModel(getString(R.string.menu_attendance_count));
+        actionBarModel.backgroundColorResId = R.color.colorPreference;
+        fragmentCallback.setActionBar(actionBarModel);
 
         items = new ArrayList<>();
         items.add(new DefaultArrayAdapterModel(SettingsModel.AttendanceMode.ALL.name(), getString(R.string.attendance_count_settings1)));

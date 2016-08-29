@@ -17,8 +17,10 @@
 package com.daycle.daycleapp.custom.swipelistview.itemmanipulation.swipedismiss;
 
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -32,6 +34,7 @@ import com.daycle.daycleapp.custom.swipelistview.util.AdapterViewUtil;
 import com.daycle.daycleapp.custom.swipelistview.util.ListViewWrapper;
 
 import com.daycle.daycleapp.utils.L;
+import com.daycle.daycleapp.utils.UIHelper;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
@@ -463,15 +466,15 @@ public abstract class SwipeTouchListener implements View.OnTouchListener, TouchE
         float deltaX = motionEvent.getX() - mDownX;
         float deltaY = motionEvent.getY() - mDownY;
 
+        boolean dismissToRight = deltaX < 0;
+        mflingToRight = dismissToRight;
+
         // 출렁거림보다 왼쪽이나 오른쪽 움직임이 크고, 가로 움직임이 세로 움직임보다 크면 플링이라고 판단
         if (Math.abs(deltaX) > mSlop && Math.abs(deltaX) > Math.abs(deltaY)) {
 
             // 스와이핑 중이 아니라면?
             if (!mSwiping) {
                 mActiveSwipeCount++;
-
-                // 스와이프 시작
-                onStartSwipe(mCurrentView, mCurrentPosition);
             }
 
             // 스와이핑 중이라고 알림
@@ -493,14 +496,20 @@ public abstract class SwipeTouchListener implements View.OnTouchListener, TouchE
             // 스와이핑 가능하다면?
             if (mCanDismissCurrent) {
 
+                // 스와이프 시작이라고 알림
+                onStartSwipe(mCurrentView, mCurrentPosition, dismissToRight);
+
                 // 드디어 뷰 이동
                 ViewHelper.setTranslationX(mSwipingView, deltaX);
 
                 // 이동뷰에 알파값을 준다.
                 //ViewHelper.setAlpha(mSwipingView, Math.max(mMinimumAlpha, Math.min(1, 1 - 2 * Math.abs(deltaX) / mViewWidth)));
 
-                boolean dismissToRight = deltaX < 0;
+
+
+
                 if(dismissToRight){
+
                     mLeftSwipingView.setVisibility(View.GONE);
                     mRightSwipingView.setVisibility(View.VISIBLE);
                 }else{
@@ -664,7 +673,7 @@ public abstract class SwipeTouchListener implements View.OnTouchListener, TouchE
      * @param view     the {@code View} that is being swiped.
      * @param position the position of the item in the {@link android.widget.ListAdapter} corresponding to the {@code View}.
      */
-    protected void onStartSwipe(@NonNull final View view, final int position) {
+    protected void onStartSwipe(@NonNull final View view, final int position, boolean dismissToRight) {
     }
 
     /**

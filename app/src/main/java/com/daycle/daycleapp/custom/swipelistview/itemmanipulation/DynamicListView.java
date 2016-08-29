@@ -152,8 +152,8 @@ public class DynamicListView extends ListView {
      * @param onDismissCallback the {@link OnDismissCallback}
      *                          that is notified of dismissals.
      */
-    public void enableSwipeToDismiss(@NonNull final OnDismissCallback onDismissCallback) {
-        mSwipeTouchListener = new SwipeDismissTouchListener(new DynamicListViewWrapper(this), onDismissCallback);
+    public void enableSwipeToDismiss(int rightSwipeBackgroundColorResId, @NonNull final OnDismissCallback onDismissCallback) {
+        mSwipeTouchListener = new SwipeDismissTouchListener(new DynamicListViewWrapper(this), onDismissCallback, rightSwipeBackgroundColorResId);
     }
 
     /**

@@ -1,11 +1,12 @@
 package com.daycle.daycleapp;
 
-import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -18,7 +19,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,9 +26,9 @@ import com.daycle.daycleapp.adapters.CustomNavMenuListViewAdapter;
 import com.daycle.daycleapp.adapters.NavMenuArrayAdapterModel;
 import com.daycle.daycleapp.applications.App;
 import com.daycle.daycleapp.applications.FragmentTag;
+import com.daycle.daycleapp.models.ActionBarModel;
 import com.daycle.daycleapp.utils.L;
 import com.daycle.daycleapp.utils.NeoUtil;
-import com.daycle.daycleapp.utils.UIHelper;
 
 import java.util.ArrayList;
 
@@ -216,7 +216,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         menuItems.add(new NavMenuArrayAdapterModel("nav_settings_attendance", getString(R.string.menu_attendance_count)));
         menuItems.add(new NavMenuArrayAdapterModel("nav_about", getString(R.string.menu_about)));
         menuItems.add(new NavMenuArrayAdapterModel("nav_tutorial", getString(R.string.menu_tutorial)));
-        menuItems.add(new NavMenuArrayAdapterModel("nav_terms", getString(R.string.menu_terms)));
+//        menuItems.add(new NavMenuArrayAdapterModel("nav_terms", getString(R.string.menu_terms)));
         menuItems.add(new NavMenuArrayAdapterModel("nav_backup", getString(R.string.menu_backup)));
         CustomNavMenuListViewAdapter adapter = new CustomNavMenuListViewAdapter(this, menuItems);
         navMenuListView.setAdapter(adapter);
@@ -293,20 +293,26 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
     @Override
-    public void setActionBar(String title, boolean showAddButton, boolean showHomeButton) {
-
+    public void setActionBar(ActionBarModel actionBarModel) {
         if(ab == null || toolbar == null)
             return;
 
         setActionBarVisibility(true);
-        setActionBarTitle(title);
+        setActionBarTitle(actionBarModel.title);
 
         // 아이템 등록 메뉴 버튼 보임 유무
         this.showAddButton = showAddButton;
         setVisibleAddButton();
 
-        ab.setDisplayHomeAsUpEnabled(showHomeButton);
-        if(showHomeButton){
+        ab.setDisplayHomeAsUpEnabled(actionBarModel.showHomeButton);
+        if(actionBarModel.showHomeButton){
+
+            if(actionBarModel.customHomeButton)
+                ab.setHomeAsUpIndicator(R.drawable.ic_close);
+            else{
+                ab.setHomeAsUpIndicator(null);
+            }
+
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -321,6 +327,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                 toggle.syncState();
             }
         }
+
+        // 백그라운드 컬러 아이디
+        int colorId = actionBarModel.backgroundColorResId;
+        ab.setBackgroundDrawable(new ColorDrawable(ContextCompat.getColor(this, colorId == 0 ? R.color.colorAccent : colorId)));
     }
 
     @Override

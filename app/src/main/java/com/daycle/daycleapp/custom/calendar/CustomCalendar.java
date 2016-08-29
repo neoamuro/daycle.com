@@ -54,7 +54,7 @@ public class CustomCalendar extends Fragment {
     // 출석일
     public ArrayList<AttendanceDayModel> adays;
     public Calendar rightNow;
-    private int circleColor;
+    private int futureCircleColor;
     private boolean clickAble = true;
     private AttendanceModel aitem;
     private String[] weekdays;
@@ -67,14 +67,14 @@ public class CustomCalendar extends Fragment {
 
         calendar.aitem = aitem;
         calendar.rightNow = rightNow;
-        calendar.circleColor = Color.parseColor("#5f6061");
+        calendar.futureCircleColor = Color.parseColor("#c5c5c5");
         calendar.clickAble = !aitem.done;
 
         return calendar;
     }
 
-    public void setCircleColor(int color){
-        circleColor = color;
+    public void setFutureCircleColor(int color){
+        futureCircleColor = color;
     }
 
     @Override
@@ -306,12 +306,14 @@ public class CustomCalendar extends Fragment {
 
                 //요일별 색상 정하기
                 if((dayCnt % 7) == 0){
-                    day.setTextDayColor(Color.RED);
+                    //day.setTextDayColor(Color.RED);
                 } else if((dayCnt % 7) == 6){
-                    day.setTextDayColor(Color.GRAY);
+                    //day.setTextDayColor(Color.GRAY);
                 } else {
-                    day.setTextDayColor(Color.BLACK);
+                    //day.setTextDayColor(Color.BLACK);
                 }
+
+                day.setTextDayColor(Color.BLACK);
 
                 //요일 표시줄 설정
                 if(dayCnt >= 0 && dayCnt < 7)
@@ -339,6 +341,8 @@ public class CustomCalendar extends Fragment {
 
                     day.setTextDaySize(dayFontSize); // 일자 글자 크기
                     day.setTextDayTopPadding(dayTopPadding); // 날짜의 Top padding
+
+
 
                     //이전 달 블럭 표시
                     if(actlist.get(dayCnt).equals("p")){
@@ -380,6 +384,12 @@ public class CustomCalendar extends Fragment {
                         }
                     }
 
+                    //오늘 날짜보다 크면 흐리게
+                    boolean isFuture = getCheckFuture(day, today);
+                    if(isFuture){
+                        day.setTextDayColor(Color.parseColor("#c5c5c5"));
+                    }
+
                     // 출석 표시된 날짜에 동그라미
                     int y = day.getYear();
                     int m = day.getMonth() + 1;
@@ -391,7 +401,7 @@ public class CustomCalendar extends Fragment {
                         if(item.day.equals(dayString)){
 
                             if(item.is_future){
-                                day.setCircleColor(circleColor);
+                                day.setCircleColor(futureCircleColor);
                             }
                             day.setSelected(true);
                             break;
@@ -490,15 +500,11 @@ public class CustomCalendar extends Fragment {
         AttendanceDayModel dayItem = AttendanceDayModel.selectOne(aitem.id, day);
 
         // 미래의 날짜인가?
-        boolean isFuture = false;
         final Calendar today = Calendar.getInstance();
-        int touchedDayInt = touchedDay.getYear() * 1000 + touchedDay.getMonth() * 100 + touchedDay.getDay();
-        int todayInt = today.get(Calendar.YEAR) * 1000 + today.get(Calendar.MONTH) * 100 + today.get(Calendar.DAY_OF_MONTH);
-        L.d(touchedDayInt + " " + todayInt);
-        if(touchedDayInt > todayInt){
+        boolean isFuture = getCheckFuture(touchedDay, today);
 
-            isFuture = true;
-            touchedDay.setCircleColor(circleColor);
+        if(isFuture){
+            touchedDay.setCircleColor(futureCircleColor);
         }
 
         if(dayItem == null){
@@ -529,5 +535,25 @@ public class CustomCalendar extends Fragment {
         }
 
         touchedDay.invalidate();
+    }
+
+    private boolean getCheckFuture(Oneday oneday, Calendar today){
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(oneday.getYear(), oneday.getMonth(), oneday.getDay());
+        L.d("calendar.getTimeInMillis(): " + calendar.getTimeInMillis() + " / today.getTimeInMillis(): " + today.getTimeInMillis());
+        if(calendar.getTimeInMillis() > today.getTimeInMillis()){
+            return true;
+        }
+
+
+
+//        int dyaInt = oneday.getYear() * 10000 + oneday.getMonth() * 1000 + oneday.getDay();
+//        int todayInt = today.get(Calendar.YEAR) * 10000 + today.get(Calendar.MONTH) * 1000 + today.get(Calendar.DAY_OF_MONTH);
+//        L.d(dyaInt + " " + todayInt);
+//        if(dyaInt > todayInt){
+//            return true;
+//        }
+
+        return false;
     }
 }

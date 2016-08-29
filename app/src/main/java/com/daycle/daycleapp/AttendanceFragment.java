@@ -34,6 +34,7 @@ import com.daycle.daycleapp.custom.swipelistview.itemmanipulation.swipedismiss.u
 
 import com.daycle.daycleapp.custom.CustomSimpleSwipeUndoAdapter;
 import com.daycle.daycleapp.custom.AttendanceListViewAdapter;
+import com.daycle.daycleapp.models.ActionBarModel;
 import com.daycle.daycleapp.models.AttendanceModel;
 import com.daycle.daycleapp.models.SettingsModel;
 import com.daycle.daycleapp.utils.CalendarUtil;
@@ -70,7 +71,12 @@ public class AttendanceFragment extends BaseFragment {
         setLayout(inflater, container, FRAGMENT_MAIN_VIEW_RES_ID);
 
         fragmentCallback.setActionBarVisibility(true);
-        fragmentCallback.setActionBar("Daycle", true, false);
+
+        ActionBarModel actionBarModel = new ActionBarModel("Daycle");
+        actionBarModel.showAddButton = true;
+        actionBarModel.showHomeButton = false;
+        //actionBarModel.customHomeButton = false;
+        fragmentCallback.setActionBar(actionBarModel);
 
         // UI 인스턴스 가져오기
         DynamicListView listView = (DynamicListView) mainView.findViewById(R.id.dynamicListView); // 스와이프 리스트 뷰
@@ -114,7 +120,7 @@ public class AttendanceFragment extends BaseFragment {
 
         /* Enable swipe to dismiss */
         // 스와이프만 가능하게 (undo는 없음)
-        listView.enableSwipeToDismiss(new OnDismissCallback() {
+        listView.enableSwipeToDismiss(R.color.colorDefaultBackground, new OnDismissCallback() {
 
             // 왼쪽이나 오른쪽으로 플링 했음
             @Override
@@ -243,6 +249,7 @@ public class AttendanceFragment extends BaseFragment {
         AttendanceModel item = new AttendanceModel();
         item.title = title;
         item.done_day = "";
+        item.order = 0;
 
         // 디비에 삽입
         long insertId = AttendanceModel.insert(item);

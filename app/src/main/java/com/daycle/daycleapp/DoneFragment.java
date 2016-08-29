@@ -1,8 +1,10 @@
 package com.daycle.daycleapp;
 
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import com.daycle.daycleapp.custom.swipelistview.DoneListViewAdapter;
 import com.daycle.daycleapp.custom.swipelistview.appearance.simple.AlphaInAnimationAdapter;
 import com.daycle.daycleapp.custom.swipelistview.itemmanipulation.DynamicListView;
 import com.daycle.daycleapp.custom.swipelistview.itemmanipulation.swipedismiss.OnDismissCallback;
+import com.daycle.daycleapp.models.ActionBarModel;
 import com.daycle.daycleapp.models.AttendanceDayModel;
 import com.daycle.daycleapp.models.AttendanceModel;
 import com.daycle.daycleapp.utils.L;
@@ -57,7 +60,9 @@ public class DoneFragment extends BaseFragment {
         DynamicListView listView = (DynamicListView) mainView.findViewById(R.id.dynamicListView); // 스와이프 리스트 뷰
 
         // 액션바 설정
-        fragmentCallback.setActionBar(getString(R.string.menu_done), false, true);
+        ActionBarModel actionBarModel = new ActionBarModel(getString(R.string.menu_done));
+        actionBarModel.backgroundColorResId = R.color.colorDone;
+        fragmentCallback.setActionBar(actionBarModel);
 
         // 완료된 리스트 가져오기
         ArrayList<AttendanceModel> items = AttendanceModel.selectAll(AttendanceModel.SelectMode.DONE, false);
@@ -154,7 +159,7 @@ public class DoneFragment extends BaseFragment {
 
         /* Enable swipe to dismiss */
         // 스와이프 완료 됐을때...
-        listView.enableSwipeToDismiss(new OnDismissCallback() {
+        listView.enableSwipeToDismiss(R.color.colorGray, new OnDismissCallback() {
 
             // 왼쪽이나 오른쪽으로 플링 했음
             @Override

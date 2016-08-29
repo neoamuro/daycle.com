@@ -17,13 +17,16 @@ package com.daycle.daycleapp.custom.swipelistview.itemmanipulation.swipedismiss;
 
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.daycle.daycleapp.R;
 import com.daycle.daycleapp.custom.swipelistview.util.AdapterViewUtil;
 import com.daycle.daycleapp.custom.swipelistview.util.ListViewWrapper;
 
 import com.daycle.daycleapp.utils.L;
+import com.daycle.daycleapp.utils.UIHelper;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ValueAnimator;
@@ -72,6 +75,8 @@ public class SwipeDismissTouchListener extends com.daycle.daycleapp.custom.swipe
     @NonNull
     private final Handler mHandler = new Handler();
 
+    private int mRightSwipeBackgroundColorResId;
+
     /**
      * Constructs a new {@code SwipeDismissTouchListener} for the given {@link android.widget.AbsListView}.
      *
@@ -79,10 +84,12 @@ public class SwipeDismissTouchListener extends com.daycle.daycleapp.custom.swipe
      * @param callback    The callback to trigger when the user has indicated that he
      */
     @SuppressWarnings("UnnecessaryFullyQualifiedName")
-    public SwipeDismissTouchListener(@NonNull final ListViewWrapper listViewWrapper, @NonNull final com.daycle.daycleapp.custom.swipelistview.itemmanipulation.swipedismiss.OnDismissCallback callback) {
+    public SwipeDismissTouchListener(@NonNull final ListViewWrapper listViewWrapper, @NonNull final com.daycle.daycleapp.custom.swipelistview.itemmanipulation.swipedismiss.OnDismissCallback callback, int rightSwipeBackgroundColorResId) {
         super(listViewWrapper);
         mCallback = callback;
         mDismissAnimationTime = listViewWrapper.getListView().getContext().getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+        mRightSwipeBackgroundColorResId = rightSwipeBackgroundColorResId;
     }
 
     /**
@@ -112,6 +119,33 @@ public class SwipeDismissTouchListener extends com.daycle.daycleapp.custom.swipe
     protected void directDismiss(final int position) {
         mDismissedPositions.add(position);
         finalizeDismiss();
+    }
+
+    @Override
+    protected void onStartSwipe(@NonNull View view, int position, boolean dismissToRight) {
+        //super.onStartSwipe(view, position);
+        // 컬러가 있는 자식뷰를 가져온다.
+
+        View childView = ((ViewGroup)view.findViewById(R.id.itemContent)).getChildAt(0);
+        if(dismissToRight){
+
+            // 투명으로 만들어서 부모 백그라운드 컬러를 보이게 한다.
+            childView.setBackgroundColor(ContextCompat.getColor(view.getContext(), android.R.color.transparent));
+        }else{
+            childView.setBackgroundColor(ContextCompat.getColor(view.getContext(), mRightSwipeBackgroundColorResId));
+        }
+    }
+
+    @Override
+    protected void onCancelSwipe(@NonNull View view, int position) {
+        //super.onCancelSwipe(view, position);
+
+        if(mRightSwipeBackgroundColorResId > 0){
+            View childView = ((ViewGroup)view.findViewById(R.id.itemContent)).getChildAt(0);
+
+            // 백그라운드 컬러 복구
+            childView.setBackgroundColor(ContextCompat.getColor(view.getContext(), mRightSwipeBackgroundColorResId));
+        }
     }
 
     private void dismissAbove(final int position) {

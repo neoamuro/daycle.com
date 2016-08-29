@@ -62,7 +62,7 @@ public class SwipeDismissAdapter extends BaseAdapterDecorator {
         if (getDecoratedBaseAdapter() instanceof ArrayAdapter<?>) {
             ((ArrayAdapter<?>) getDecoratedBaseAdapter()).propagateNotifyDataSetChanged(this);
         }
-        mDismissTouchListener = new SwipeDismissTouchListener(listViewWrapper, mOnDismissCallback);
+        mDismissTouchListener = new SwipeDismissTouchListener(listViewWrapper, mOnDismissCallback, 0);
         if (mParentIsHorizontalScrollContainer) {
             mDismissTouchListener.setParentIsHorizontalScrollContainer();
         }

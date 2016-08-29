@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
@@ -24,6 +26,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ToggleButton;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 public class UIHelper {
@@ -132,6 +135,32 @@ public class UIHelper {
 //
 //        return animation;
 //    }
+
+    public static int getBackgroundColor(View view) {
+        Drawable drawable = view.getBackground();
+        if (drawable instanceof ColorDrawable) {
+            ColorDrawable colorDrawable = (ColorDrawable) drawable;
+            if (Build.VERSION.SDK_INT >= 11) {
+                return colorDrawable.getColor();
+            }
+            try {
+                Field field = colorDrawable.getClass().getDeclaredField("mState");
+                field.setAccessible(true);
+                Object object = field.get(colorDrawable);
+                field = object.getClass().getDeclaredField("mUseColor");
+                field.setAccessible(true);
+                return field.getInt(object);
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        L.d("drawable.getClass().toString(): " + drawable.getClass().toString());
+
+        return 0;
+    }
 
     // 애니메이션 리스너에서 End만 쓰고 싶은데 콜백이 너무 지저분해서 따로 구현
     public static Animation loadAnimation(Context context, int resid, final AnimationCallback callback){

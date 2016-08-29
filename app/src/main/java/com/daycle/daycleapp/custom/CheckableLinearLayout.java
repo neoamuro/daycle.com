@@ -7,7 +7,6 @@ import android.widget.Checkable;
 import android.widget.LinearLayout;
 
 import com.daycle.daycleapp.R;
-import com.daycle.daycleapp.utils.L;
 
 /**
  * Created by neoam on 2016-08-24.
@@ -38,7 +37,7 @@ public class CheckableLinearLayout extends LinearLayout implements Checkable {
         if(checked){
             this.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorGray));
         }else{
-            this.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorBackground));
+            this.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorDefaultBackground));
         }
         checkable = (Checkable) findViewById(checkableId);
         if(checkable == null)

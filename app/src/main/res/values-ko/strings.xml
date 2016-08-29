@@ -37,7 +37,10 @@
     <string name="menu_about">Daycle 소개</string>
     <string name="menu_tutorial">사용방법</string>
     <string name="menu_terms">이용약관</string>
-    <string name="menu_calendar">Calendar</string>
+    <string name="menu_calendar">캘린더</string>
+    <string name="menu_backup">백업</string>
+    <string name="backup_item01">Google Drive에 백업</string>
+    <string name="backup_item02">Google Drive에서 복원</string>
     <!-- // nav menu -->
 
     <!-- actionbar title -->
@@ -50,5 +53,12 @@
     <string name="about_daycle">데이클에 대해서...</string>
     <string name="terms">이용약관</string>
     <string name="app_reset_msg">언어 설정을 적용하기 위해 앱을 재시작합니다.</string>
-    <string name="menu_backup">Backup</string>
+
+
+    <!-- backup msg -->
+    <string name="backup_completed">백업 완료</string>
+    <string name="restore_completed">복구 완료</string>
+    <string name="backup_nohave_item">복원할 데이터가 없습니다.</string>
+    <string name="backup_item_confirm">복원 하시겠습니까?</string>
+    <!-- // backup msg -->
 </resources>

@@ -73,7 +73,7 @@ public class SwipeUndoTouchListener extends SwipeDismissTouchListener {
     private final Collection<View> mDismissedViews = new LinkedList<>();
 
     public SwipeUndoTouchListener(@NonNull final ListViewWrapper listViewWrapper, @NonNull final com.daycle.daycleapp.custom.swipelistview.itemmanipulation.swipedismiss.undo.UndoCallback callback) {
-        super(listViewWrapper, callback);
+        super(listViewWrapper, callback, 0);
         mCallback = callback;
     }
 

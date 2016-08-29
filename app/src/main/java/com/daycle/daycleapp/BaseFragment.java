@@ -2,6 +2,7 @@ package com.daycle.daycleapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.daycle.daycleapp.applications.App;
 import com.daycle.daycleapp.applications.FragmentTag;
+import com.daycle.daycleapp.models.ActionBarModel;
 
 /**
  * Created by neoam on 2016-08-24.
@@ -23,7 +25,7 @@ public class BaseFragment extends Fragment implements BaseActivity.onKeyBackPres
     public interface FragmentCallback {
         void setActionBarVisibility(boolean isVisible);
         void setFabVisibility(boolean isVisible);
-        void setActionBar(String title, boolean showAddButton, boolean showHomeButton);
+        void setActionBar(ActionBarModel actionBarModel);
         DrawerLayout getDrawer();
         void unCheckNavMenu();
     }

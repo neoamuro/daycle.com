@@ -10,6 +10,7 @@ import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.daycle.daycleapp.R;
 import com.daycle.daycleapp.applications.App;
 import com.daycle.daycleapp.utils.L;
 import com.daycle.daycleapp.utils.UIHelper;
@@ -40,7 +41,7 @@ public class StickChart extends View {
     private void init(){
         paint = new Paint();
         defaultColor = Color.DKGRAY;
-        recFillColor = Color.DKGRAY;
+        recFillColor = R.color.colorDone;
         maxAmount = 10;
         bottomText = "";
     }
