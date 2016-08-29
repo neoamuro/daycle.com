@@ -1,0 +1,23 @@
+<!-- 약관 레이아웃 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/aboutLayout"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_horizontal_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@android:color/white">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:text="@string/terms"
+        android:textColor="@color/colorGray"
+        android:lineSpacingExtra="8dp"
+        android:textAppearance="@android:style/TextAppearance.Large"/>
+</RelativeLayout>
+    <!-- // 약관 레이아웃 -->

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/itemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!-- 삭제 배경 -->
+    <FrameLayout
+        android:id="@+id/itemLeftSwite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_red_dark">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_delete"
+            android:backgroundTint="@android:color/white"
+            android:layout_gravity="left|center_vertical"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+    </FrameLayout>
+    <!-- // 삭제 배경 -->
+
+    <!-- 체크 배경 -->
+    <FrameLayout
+        android:id="@+id/itemRightSwite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_checked"
+            android:backgroundTint="@android:color/white"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+    </FrameLayout>
+    <!-- // 체크 배경 -->
+
+    <!-- 아이템 내용 -->
+    <LinearLayout
+        android:id="@+id/itemContent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:background="@android:color/white">
+        <!-- 타이틀 -->
+        <TextView
+            android:id="@+id/itemTextView"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="20sp"
+            tools:ignore="UnusedAttribute"
+            android:layout_weight="0.7"/>
+        <!-- // 타이틀 -->
+
+        <!-- 출석 카운트 -->
+        <TextView
+            android:id="@+id/itemCountTextView"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="20sp"
+            tools:ignore="UnusedAttribute" />
+        <!-- // 출석 카운트 -->
+    </LinearLayout>
+    <!-- // 아이템 내용 -->
+</FrameLayout>

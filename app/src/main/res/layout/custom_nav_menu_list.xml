@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.daycle.daycleapp.custom.CheckableLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://com.daycleapp.custom"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="@dimen/activity_vertical_margin">
+        <!-- 메뉴 아이콘 -->
+        <ImageView android:id="@+id/itemIconImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/menu_icon_margin"
+            android:layout_gravity="center_vertical" />
+        <!-- // 메뉴 아이콘 -->
+
+        <!-- 메뉴 타이틀 -->
+        <TextView
+            android:id="@+id/itemTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/colorAccent"/>
+        <!-- // 메뉴 타이틀 -->
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorGray"
+        android:visibility="gone"/>
+</com.daycle.daycleapp.custom.CheckableLinearLayout>

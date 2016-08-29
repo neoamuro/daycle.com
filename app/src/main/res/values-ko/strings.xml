@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Daycle</string>
+    <string name="action_settings">Settings</string>
+    <string name="intro_sub_title">Daily Stamp</string>
+    <string name="intro_title">daycle</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <!-- storage key name -->
+    <string name="localstorage_settings_key">settings</string>
+    <!-- // storage key name -->
+
+    <!-- error -->
+    <string name="err_network">네트워크 연결이 되어 있지 않습니다.</string>
+    <string name="err_connect_server">서버 접속에 실패하였습니다.</string>
+    <!-- // error -->
+
+    <!-- dialog -->
+    <string name="dialog_alert_default_title_string">경고</string>
+    <string name="dialog_invalid_default_alert_string">필수 사항을 입력해 주세요.</string>
+    <string name="dialog_alert_confirm_string">확인</string>
+    <string name="dialog_default_title_string">경고</string>
+    <string name="dialog_button_yes_string">Yes</string>
+    <string name="dialog_button_no_string">No</string>
+    <!-- // dialog -->
+
+    <string name="default_cancel_button">취소</string>
+    <string name="default_ok_button">확인</string>
+
+    <!-- nav menu -->
+    <string name="navbar_title">설정</string>
+    <string name="menu_done">완료 리스트</string>
+    <string name="menu_lang">언어설정</string>
+    <string name="menu_attendance_count">출석일수 표시</string>
+    <string name="menu_about">Daycle 소개</string>
+    <string name="menu_tutorial">사용방법</string>
+    <string name="menu_terms">이용약관</string>
+    <string name="menu_calendar">Calendar</string>
+    <!-- // nav menu -->
+
+    <!-- actionbar title -->
+    <!-- // actionbar title -->
+
+    <string name="attendance_count_settings1">모두 표시</string>
+    <string name="attendance_count_settings2">이번달만</string>
+    <string name="attendance_count_settings3">표시하지 않음</string>
+
+    <string name="about_daycle">데이클에 대해서...</string>
+    <string name="terms">이용약관</string>
+    <string name="app_reset_msg">언어 설정을 적용하기 위해 앱을 재시작합니다.</string>
+    <string name="menu_backup">Backup</string>
+</resources>

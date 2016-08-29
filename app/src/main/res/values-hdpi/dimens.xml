@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="statusbar_height">21dp</dimen>
+
+</resources>

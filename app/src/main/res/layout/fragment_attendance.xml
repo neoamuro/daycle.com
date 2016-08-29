@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- 아이템 입력 박스 -->
+        <LinearLayout
+            android:id="@+id/itemAddBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+            <EditText
+                android:id="@+id/itemEditText"
+                android:layout_row="0"
+                android:layout_columnSpan="2"
+                android:singleLine="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/itemCancelButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:layout_weight="0.5"
+                    android:text="@string/default_cancel_button" />
+                <Button
+                    android:id="@+id/itemAddButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="fill_horizontal"
+                    android:text="@string/default_ok_button"
+                    android:textColor="@android:color/white"
+                    android:layout_weight="0.5" />
+            </LinearLayout>
+        </LinearLayout>
+        <!-- // 아이템 입력 박스 -->
+
+        <!-- 메인 리스트 -->
+        <com.daycle.daycleapp.custom.swipelistview.itemmanipulation.DynamicListView
+            android:id="@+id/dynamicListView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawSelectorOnTop="true"/>
+        <!-- // 메인 리스트 -->
+    </LinearLayout>
+</RelativeLayout>

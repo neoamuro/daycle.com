@@ -1,0 +1,40 @@
+<!-- 인트로 레이아웃 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/introLayout"
+    android:visibility="visible"
+    android:background="@android:color/white">
+
+    <!-- 상단 작은 타이틀 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/intro_sub_title"
+        android:id="@+id/textView2"
+        android:textStyle="bold"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_marginRight="45dp"
+        android:layout_marginEnd="45dp"
+        android:layout_above="@+id/textView"
+        android:layout_alignRight="@+id/textView"
+        android:layout_alignEnd="@+id/textView" />
+    <!-- // 상단 작은 타이틀 -->
+
+    <!-- 메인 타이틀 텍스트 -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:text="@string/intro_title"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/intro_main_title_size"
+        android:textColor="@color/colorPrimary"
+        android:layout_gravity="center_horizontal" />
+
+    <!-- // 메인 타이틀 텍스트 -->
+</RelativeLayout>
+    <!-- // 인트로 레이아웃 -->

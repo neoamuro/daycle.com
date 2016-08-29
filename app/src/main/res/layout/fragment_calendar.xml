@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent" 
+	android:background="#FFFFFF">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!-- 타이틀 -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bottom_border">
+                <TextView
+                    android:id="@+id/itemTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:textSize="20sp"
+                    android:padding="16dp" />
+            </FrameLayout>
+            <!-- // 타이틀 -->
+
+            <LinearLayout
+                android:id="@+id/selectmonth"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical"
+                android:background="#FFFFFF" android:padding="5dp">
+
+                <ImageButton android:id="@+id/btn_calendar_prevmonth"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_left_arrow"
+                    android:background="@color/colorBackground"
+                    android:scaleType="fitXY" />
+                <TextView
+                    android:id="@+id/CalendarMonthTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#AAAAAA"
+                    android:textStyle="bold"
+                    android:textSize="22dip"
+                    android:gravity="center"
+                    android:layout_weight="50" />
+
+                <ImageButton android:id="@+id/btn_calendar_nextmonth"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:src="@drawable/ic_right_arrow"
+                    android:background="@color/colorBackground"
+                    android:scaleType="fitXY"/>
+            </LinearLayout>
+
+            <com.daycle.daycleapp.custom.CustomViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_red_dark">
+
+            </com.daycle.daycleapp.custom.CustomViewPager>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                <com.daycle.daycleapp.custom.StickChart
+                    android:id="@+id/stick1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3" />
+                <com.daycle.daycleapp.custom.StickChart
+                    android:id="@+id/stick2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"/>
+                <com.daycle.daycleapp.custom.StickChart
+                    android:id="@+id/stick3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:id="@+id/group1" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_done"
+            android:icon="@drawable/ic_menu_done"
+            android:title="Terminate List" />
+    </group>
+
+    <group android:id="@+id/group2" android:checkableBehavior="single">
+        <!--<item-->
+            <!--android:id="@+id/nav_lang"-->
+            <!--android:icon="@drawable/ic_menu_lang"-->
+            <!--android:title="Language" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_attendance"-->
+            <!--android:icon="@drawable/ic_menu_attendance"-->
+            <!--android:title="Attendance count" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_about"-->
+            <!--android:icon="@drawable/ic_menu_about"-->
+            <!--android:title="About daycle" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_tutorial"-->
+            <!--android:icon="@drawable/ic_menu_tutorial"-->
+            <!--android:title="Tutorial" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_terms"-->
+            <!--android:icon="@drawable/ic_menu_terms"-->
+            <!--android:title="Terms of Service" />-->
+
+        <item
+            android:id="@+id/nav_dummy"
+            android:title="Language"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/nav_lang"
+            android:title="Language" />
+        <item
+            android:id="@+id/nav_settings_attendance"
+            android:title="Attendance count" />
+        <item
+            android:id="@+id/nav_about"
+            android:title="About daycle" />
+        <item
+            android:id="@+id/nav_tutorial"
+            android:title="Tutorial" />
+        <item
+            android:id="@+id/nav_terms"
+            android:title="Terms of Service" />
+
+
+
+    </group>
+</menu>

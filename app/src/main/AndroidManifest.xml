@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.daycle.daycleapp">
+
+    <!-- 인터넷 사용 권한 설정 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- 네트워크 연결상태 체크 권한 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- 구글 ACCOUNT에 액세스 할수 있는 권한 -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <application
+        android:name="com.daycle.daycleapp.applications.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.daycle.daycleapp.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value="com.daycle.daycleapp.MainActivity" />
+            <!--<meta-data android:name="com.google.android.apps.drive.APP_ID" android:value="id=AIzaSyBsUktRv4o3CzniYAfv6dGP3BhDj6BakiM" />-->
+        </activity>
+    </application>
+
+</manifest>
